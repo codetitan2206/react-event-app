@@ -1,35 +1,40 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+
+import { EventsPage } from "./pages/EventsPage";
+import { MyEventsPage } from "./pages/MyEventsPage";
+import { LoginPage } from "./pages/LoginPage";
+import { RegisterPage } from "./pages/RegisterPage";
+import { EventDetailsPage } from "./pages/EventDetailsPage";
+import { EditEventPage } from "./pages/EditEventPage";
+import { Header } from "./components/header/Header";
+import { AuthProvider } from "./contexts/AuthProvider";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <AuthProvider>
+      <div className="min-h-screen bg-gray-50">
+        <Router>
+          <Header />
+          <main className="container mx-auto px-4 py-8">
+            <Routes>
+              <Route path="/" element={<EventsPage />} />
+              <Route path="/my-events" element={<MyEventsPage />} />
+              <Route path="/events/:eventId" element={<EventDetailsPage />} />
+              <Route path="/events/:eventId/edit" element={<EditEventPage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </main>
+        </Router>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </AuthProvider>
+  );
 }
 
-export default App
+export default App;
