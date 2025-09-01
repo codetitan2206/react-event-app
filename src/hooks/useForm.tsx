@@ -11,9 +11,10 @@ export function useForm<T>({
   onSubmit: (values: T) => Promise<void> | void;
 }) {
   const [values, setValues] = useState<T>(initialValues);
-  const [error, setError] = useState<Partial<T>>({});
+  const [errors, setErrors] = useState<Partial<T>>({});
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
+
   useEffect(() => {
     setValues(initialValues);
   }, [initialValues]);
@@ -47,5 +48,21 @@ export function useForm<T>({
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const reset = () => {
+    setValues(initialValues);
+    setErrors({});
+    setError(null);
+  };
+
+  return {
+    values,
+    errors,
+    error,
+    isLoading,
+    handleChange,
+    handleSubmit,
+    reset,
   };
 }
