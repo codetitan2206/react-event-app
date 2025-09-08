@@ -1,6 +1,16 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
+import { Button } from "../Button";
 
 export function Header() {
+  const { isAuthenticated, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
+
   return (
     <header className="flex items-center justify-between bg-white p-4 shadow">
       <h1 className="text-xl font-bold">Event App</h1>
@@ -12,12 +22,22 @@ export function Header() {
           <li>
             <Link to="/my-events">My Events</Link>
           </li>
-          <li>
-            <Link to="/login">Login</Link>
-          </li>
-          <li>
-            <Link to="/register">Register</Link>
-          </li>
+          {isAuthenticated ? (
+            <li>
+              <Button variant="secondary" size="small" onClick={handleLogout}>
+                Logout
+              </Button>
+            </li>
+          ) : (
+            <>
+              <li>
+                <Link to="/login">Login</Link>
+              </li>
+              <li>
+                <Link to="/register">Register</Link>
+              </li>
+            </>
+          )}
         </ul>
       </nav>
     </header>
