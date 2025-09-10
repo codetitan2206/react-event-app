@@ -3,7 +3,7 @@ export const API_BASE_URL =
 
 export const apiFetch = async (
   url: string,
-  options: RequestInit
+  options?: RequestInit
 ): Promise<Response> => {
   const auth = localStorage.getItem("auth");
   const token = auth ? JSON.parse(auth).token : null;
