@@ -8,3 +8,12 @@ export interface User {
   name: string;
   email: string;
 }
+
+export interface EventData {
+  id: number;
+  name: string;
+  description: string;
+  date: string;
+  location: string;
+  ownerId: number;
+}
