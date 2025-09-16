@@ -1,5 +1,6 @@
 import type { EventData } from "../types";
 import { API_BASE_URL, apiFetch } from "./api";
+import type { User } from "../types";
 
 export const fetchUserEvents = async (
   userId: number | undefined
