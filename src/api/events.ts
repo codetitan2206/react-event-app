@@ -35,3 +35,32 @@ export const createEvent = async (
     throw error;
   }
 };
+
+
+export const deleteEvent = async (eventId: number): Promise<void> => {
+  try {
+    const response = await apiFetch(`${API_BASE_URL}/v1/events/${eventId}`, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) {
+      throw new Error(`API error: ${response.status}`);
+    }
+  } catch (error) {
+    console.error(`Error deleting event ${eventId}:`, error);
+    throw error;
+  }
+};
+
+export const fetchEventById = async (eventId: number): Promise<EventData> => {
+  try {
+    const response = await apiFetch(`${API_BASE_URL}/v1/events/${eventId}`);
+    if (!response.ok) {
+      throw new Error(`API error: ${response.status}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error(`Error fetching event ${eventId}:`, error);
+    throw error;
+  }
+};
