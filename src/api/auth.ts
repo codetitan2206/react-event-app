@@ -30,6 +30,9 @@ export const login = async (
   try {
     const response = await apiFetch(`${API_BASE_URL}/v1/auth/login`, {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({ email, password }),
     });
 

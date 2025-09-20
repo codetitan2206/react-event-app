@@ -36,7 +36,6 @@ export const createEvent = async (
   }
 };
 
-
 export const deleteEvent = async (eventId: number): Promise<void> => {
   try {
     const response = await apiFetch(`${API_BASE_URL}/v1/events/${eventId}`, {
@@ -58,9 +57,31 @@ export const fetchEventById = async (eventId: number): Promise<EventData> => {
     if (!response.ok) {
       throw new Error(`API error: ${response.status}`);
     }
-    return await response.json();
+    const data = await response.json();
+    return data;
   } catch (error) {
     console.error(`Error fetching event ${eventId}:`, error);
+    throw error;
+  }
+};
+
+export const updateEvent = async (
+  eventId: number,
+  eventData: Omit<EventData, "id" | "attendees" | "ownerId">
+): Promise<EventData> => {
+  try {
+    const response = await apiFetch(`${API_BASE_URL}/v1/events/${eventId}`, {
+      method: "PUT",
+      body: JSON.stringify(eventData),
+    });
+
+    if (!response.ok) {
+      throw new Error(`API error: ${response.status}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error(`Error updating event ${eventId}:`, error);
     throw error;
   }
 };
