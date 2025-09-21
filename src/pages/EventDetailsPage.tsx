@@ -9,17 +9,19 @@ import { fetchUsers } from "../api/users";
 import { useAuth } from "../contexts/AuthContext";
 import type { EventData, User } from "../types";
 import { useParams, useNavigate } from "react-router-dom";
-import { AddAttendeeModal } from "../components/attendees/AddAttendeeModal";
+import { AddAttendeeModal } from "../components/Attendees/AddAttendeeModal";
 import { CalendarIcon, MapPinIcon, PencilIcon, TrashIcon } from "lucide-react";
 import { formatDate } from "../utils/dateUtils";
 import { LoadingMessage } from "../components/LoadingMessage";
-import { AttendeeSection } from "../components/attendees/AttendeeSection";
+import { AttendeeSection } from "../components/Attendees/AttendeeSection";
 import { Button } from "../components/Button";
 import { useFetch } from "../hooks/useFetch";
 import { useState } from "react";
 import { ErrorMessage } from "../components/ErrorMessage";
 import { useAsync } from "../hooks/useAsync";
+// Update the import path if ConfirmModal is located elsewhere, for example:
 import { ConfirmModal } from "../components/ConfirmModal";
+// Or, if the file does not exist, create ConfirmModal.tsx in the correct directory.
 
 export function EventDetailsPage() {
   const { auth } = useAuth();
@@ -91,6 +93,10 @@ export function EventDetailsPage() {
   if (eventLoading) {
     return <LoadingMessage message="Loading..." />;
   }
+
+  // 👇 Add debug logs here
+  //console.log("Auth userId:", auth?.userId);
+  //console.log("Event ownerId:", currentEvent?.ownerId);
 
   const currentAttendees = attendees || [];
 
