@@ -19,9 +19,8 @@ import { useFetch } from "../hooks/useFetch";
 import { useState } from "react";
 import { ErrorMessage } from "../components/ErrorMessage";
 import { useAsync } from "../hooks/useAsync";
-// Update the import path if ConfirmModal is located elsewhere, for example:
+
 import { ConfirmModal } from "../components/ConfirmModal";
-// Or, if the file does not exist, create ConfirmModal.tsx in the correct directory.
 
 export function EventDetailsPage() {
   const { auth } = useAuth();
@@ -94,7 +93,6 @@ export function EventDetailsPage() {
     return <LoadingMessage message="Loading..." />;
   }
 
-  // 👇 Add debug logs here
   //console.log("Auth userId:", auth?.userId);
   //console.log("Event ownerId:", currentEvent?.ownerId);
 
@@ -103,7 +101,7 @@ export function EventDetailsPage() {
   return (
     <div className="mx-auto my-8 flex w-full flex-col overflow-hidden rounded-lg bg-white shadow-lg ">
       {error && <ErrorMessage error={error} />}
-      <div className="flex flex-col-reverse gap-4 border-b border-gray-200 p-6 md:flex-row md:items-start md:justify-between">
+      <div className="flex flex-col gap-4 border-b border-gray-200 p-6 md:flex-row md:items-start md:justify-between">
         <div className="min-w-0 flex-1">
           <h2 className="max-w-xl break-words text-xl font-semibold text-gray-800">
             {currentEvent?.name}
@@ -113,7 +111,7 @@ export function EventDetailsPage() {
           </p>
         </div>
         {auth?.userId === currentEvent?.ownerId && (
-          <div className="mb-4 flex flex-shrink-0 gap-2 md:mb-0">
+          <div className="flex gap-2 md:mb-0 md:flex-shrink-0">
             <Button
               size="small"
               variant="secondary"
